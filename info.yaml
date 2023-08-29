@@ -21,14 +21,22 @@ yaml_version: 4
 #
 # Here is a great example: https://github.com/davidsiaw/tt02-davidsiaw-stackcalc/blob/38c5647f83aad2aec675d566aa3d67b98f0aac81/info.yaml
 documentation: 
-  author:       ""      # Your name
-  title:        "Ozziel Gárnica Juárez, Alejandro García Equiterio"      # Project title
+  author:       "Ozziel Gárnica Juárez, Alejandro García Equiterio"      # Your name
+  title:        "Minimal system for performing arithmetic operations"      # Project title
   language:     "Verilog" # other examples include Verilog, Amaranth, VHDL, etc
-  description:  ""      # Short description of what your project does
+  description:  "Basic processor capable of performing basic arithmetic operations, memory read/write, and port read/write operations."      # Short description of what your project does
 
 # Longer description of how the project works. You can use standard markdown format.
   how_it_works: |
-      Explain how your project works
+The operation of the processor relies on its programming using three types of instructions: operation-type instructions (arithmetic operations), memory-type instructions, and port-type instructions. The operation-type instructions consist of 5 bits. The two most significant bits indicate the instruction type, the third bit indicates the data storage register, and the final two bits indicate the operation to be carried out.
+The memory-type instructions are composed of 5 bits. The two most significant bits denote the instruction type (read/write), the subsequent bit specifies the register where the data is stored, and the final two bits indicate the memory address for reading/writing.
+The port-type instructions consist of 5 bits. The three most significant bits indicate the instruction type (read/write). If the instruction is a read operation, the following two bits are irrelevant. However, in the case of a write instruction, the fourth bit is disregarded, and the fifth bit indicates the register where the data will be written.
+For the execution of these operations, the processor is divided into three parts: program counter, control unit, and execution unit. The program counter consists of a 4-bit register, an adder, and an instruction memory. What this part of the processor does is to load the current memory address into the register. This signal enters the adder, which increments the address by one, and the result is placed back into the register. The memory reads the instruction from the address provided by the register and sends it to the control unit.
+The control unit receives the instruction read from memory and then activates or deactivates components as needed for the execution of the instruction. This is necessary because when multiple components are connected to a bus, there's a risk of data collision.
+The execution unit is composed of two 4-bit registers, an Arithmetic Logic Unit (ALU), multiplexers, a port, and a data memory. Its operation is divided into two parts: execution of operation-type instructions and execution of memory and port-type instructions.
+For the execution of operation-type instructions, the ALU's operation selector chooses the operation specified by the instruction. Simultaneously, the ALU's output is activated to store its result in the designated register. After the operation is completed and the result is ready, the register is activated to store the result.
+For the execution of memory-type instructions, the data memory is enabled, and the action to be performed (read/write) is indicated. Through a multiplexer, which selects the source register, the data arrives if a write operation is being performed. In the case of a read operation, the data specified by the instruction is sent to the designated register.
+Similarly, port-type instructions are executed. A multiplexer controls the write operation, and for the read operation, it depends on the activation signal from the control unit.
 
 # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
   how_to_test:  |
