@@ -6,8 +6,8 @@ project:
 # If using an HDL, set wokwi_id as 0 and uncomment and list your source files here. 
 # Source files must be in ./src and you must list each source file separately
   source_files:        
-    - fourbits_top_tt04.v
-    - fourbits_top_tt04_tb.v
+    - tt04_ADGE28.v
+    - tt04_ADGE28_tb.v
     - clk_pc_code.v
     - clk_pc_code_master.v
     - alu_4_instructions.v
@@ -19,7 +19,7 @@ project:
     - register_6bits.v
     - sumador_4_y_1.v
     - unidad_con.v
-  top_module:  "fourbits_top_tt04.v"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
+  top_module:  "tt04_ADGE28.v"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
 
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2
