@@ -19,7 +19,7 @@ reg[3:0] state_reg, state_next;
 always @(negedge clk, posedge clear) begin
     if (clear) begin
         state_reg <= s0;
-        state_next <= s0;
+        //state_next <= s0;
     end
     else begin
         state_reg <= state_next;
